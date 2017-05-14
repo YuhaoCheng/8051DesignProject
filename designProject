@@ -1,0 +1,391 @@
+;; LCD1602 Library (ASM)
+;; @author Matthew Tang
+;; @lastmodified 16 March 2017
+;; @EBU5476
+
+; Board-specific parameters
+RS      EQU     P1.5 ; CEPARK51 v2.0 RS
+RW      EQU     P1.6 ; CEPARK51 v2.0 R/W'
+EN      EQU     P1.7 ; CEPARK51 v2.0 EN
+LCDDB   EQU     P0   ; CEPARK51 v2.0 Data bus
+LCDBF   EQU     P0.7 ; CEPARK51 v2.0 Busy Flag
+
+ORG 0030H
+MAIN:
+	LCALL WEL_MES
+	LJMP $
+
+	
+WEL_MES:
+	ACALL LCD1602_INIT
+	ACALL LCD1602_CLEAR
+	
+	MOV R1,#0
+	MOV R0,#0
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'W';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#1
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'e';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#2
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'l';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#3
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'c';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#4
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'o';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#5
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'m';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#6
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'e';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#7
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'!';
+	ACALL DATAWRT
+
+	MOV R1,#1
+	MOV R0,#0
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'E';
+	ACALL DATAWRT
+
+	MOV R1,#1
+	MOV R0,#1
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'n';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#2
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'t';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#3
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'e';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#4
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'r';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#6
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'t';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#7
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'i';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#8
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'c';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#9
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'k';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#10D
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'e';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#11D
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'t';
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#13D
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'I'
+	ACALL DATAWRT
+	
+	MOV R1,#1
+	MOV R0,#14D
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'D';
+	ACALL DATAWRT
+	RET
+
+WAIT_MES:
+	ACALL LCD1602_INIT
+	ACALL LCD1602_CLEAR
+	
+	MOV R1,#0
+	MOV R0,#0
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'P';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#1
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'l';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#2
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'e';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#3
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'a';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#4
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'s';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#5
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'e';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#7
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'w';
+	ACALL DATAWRT
+	
+	MOV R1,#0
+	MOV R0,#8
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'a';
+	ACALL DATAWRT
+	
+	MOV R1,#0
+	MOV R0,#9
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'i';
+	ACALL DATAWRT
+
+	MOV R1,#0
+	MOV R0,#10D
+	ACALL LCD1602_SETCURSOR
+	MOV A,#'t';
+	ACALL DATAWRT
+	RET
+	
+DEALY_5:
+	 PUSH 0
+	 PUSH 1
+	 PUSH 2
+	 MOV R2, #19
+IN_2:MOV R1,#250
+IN_1:MOV R0,#250
+LOOPIn5:NOP
+	 NOP
+	 DJNZ R0,LOOPIn5
+	 DJNZ R1,IN_1
+	 DJNZ R2,IN_2
+	 POP 2
+	 POP 1
+	 POP 0
+	 RET
+
+DEALY:  
+        PUSH 2
+	    MOV R2,#10
+	    PUSH 3
+AGAIN:MOV R3,#250
+LOOP:NOP
+	    NOP
+        DJNZ R3,LOOP
+	    DJNZ R2,AGAIN
+	    POP 3
+	    POP 2
+	    RET
+		
+DEALY2:  PUSH 2
+	MOV R2,#150
+	PUSH 3
+AGAIN2:MOV R3,#255
+LOOP2: NOP
+	NOP
+        DJNZ R3,LOOP2
+	DJNZ R2,AGAIN2
+	POP 3
+	POP 2
+	RET
+	
+UART_INIT:
+	MOV TMOD,#20H
+	MOV TH1,#0FDH
+	SETB TR1
+	MOV SCON,#50H
+	RET
+	
+UART_SEND:
+	CLR TI
+	MOV SBUF,A
+	JNB TI,$
+	RET
+
+UART_REC:
+	JNB RI,$
+	MOV A,SBUF
+	INC R2
+	CLR RI
+	RET
+
+;;
+;; LCD1602_INIT(): initialise LCD
+;; @return nothing
+LCD1602_INIT:
+        PUSH  ACC             ; save ACC
+        MOV   A, #038h        ; 2 lines, 5x7, 8-bit
+        ACALL COMNWRT         ; send command
+        MOV   A, #00Ch        ; display ON
+        ACALL COMNWRT
+        MOV   A, #006h        ; addr auto-increment
+        ACALL COMNWRT
+        MOV   A, #001h        ; clear LCD
+        ACALL COMNWRT
+        MOV   A, #080h        ; set DDRAM=0
+        ACALL COMNWRT
+        POP   ACC             ; restore ACC
+        RET
+
+;;
+;; LCD1602_CLEAR(): clear LCD and set cursor to (0, 0)
+;; @return nothing
+LCD1602_CLEAR:
+        PUSH  ACC             ; save ACC
+        MOV   A, #001h        ; clear LCD
+        ACALL COMNWRT
+        MOV   A, #080h        ; set DDRAM=0
+        ACALL COMNWRT
+        POP   ACC             ; restore ACC
+        RET
+
+;;
+;; LCD1602_SETCURSOR(x, y): set the cursor to (x, y)
+;; @param1 x: register R0
+;; @param2 y: register R1
+;; @return nothing
+LCD1602_SETCURSOR:
+        PUSH  ACC
+        ANL   0, #0Fh         ; 0 <= x <= 15
+        ANL   1, #01h         ; 0 <= y <= 1
+        MOV   A, R1
+        JZ    SC1
+        ORL   0, #40H
+SC1:    MOV   A, R0
+        ORL   A, #80H
+        ACALL COMNWRT
+        POP   ACC
+        RET
+
+;;
+;; LCD1602_COMNWRT(code): send a coded command to LCD1602
+;; @param1 code: register A
+;; @return nothing
+LCD1602_COMNWRT:
+COMNWRT:
+        ACALL   READY
+        MOV     LCDDB, A
+        CLR     RS
+        CLR     RW
+        SETB    EN
+        NOP
+        CLR     EN
+        RET
+
+;;
+;; LCD1602_COMNWRT(char): send an ASCII character to LCD1602
+;; @param1 char: register A
+;; @return nothing
+LCD1602_PUTCHAR:
+DATAWRT:
+        ACALL   READY
+        MOV     LCDDB, A
+        SETB    RS
+        CLR     RW
+        SETB    EN
+        NOP
+        CLR     EN
+        RET
+
+; internal subroutine: ready
+LCD1602_READY:
+READY:
+        PUSH 7
+        MOV  LCDDB, #0FFh
+        MOV  R7, #255
+        CLR  RS
+        SETB RW
+        SETB EN
+POLLD7:
+        JNB  LCDBF, POLLOK
+        DJNZ R7, POLLD7
+POLLOK:
+        CLR  EN
+        POP  7
+        RET
+; LCD1602 Library (ASM) [END]
+
+DEALY:  PUSH 2
+	MOV R2,#10
+	PUSH 3
+AGAIN_2:MOV R3,#250
+LOOP_2: NOP
+	NOP
+        DJNZ R3,LOOP_2
+	DJNZ R2,AGAIN_2
+	POP 3
+	POP 2
+	RET
+	
+
+	
+END
+
+
+
+
