@@ -4,11 +4,12 @@ RW      EQU     P1.6 ; CEPARK51 v2.0 R/W'
 EN      EQU     P1.7 ; CEPARK51 v2.0 EN
 LCDDB   EQU     P0   ; CEPARK51 v2.0 Data bus
 LCDBF   EQU     P0.7 ; CEPARK51 v2.0 Busy Flag
-
+; initialize the 8051 and the LCD
 ORG 0030H
 LCALL LCD1602_INIT
 LCALL LCD1602_CLEAR
 MOV R7,#0
+; the main function of this program
 MAIN:
 	LCALL WEL_MES
 	LCALL JUG_EnterAndSend
@@ -18,7 +19,7 @@ MAIN:
 	SETB P2.0
 	SJMP MAIN
 
-
+; the function to print the welcome message 
 WEL_MES:
 
 	ACALL LCD1602_INIT
@@ -150,7 +151,8 @@ WEL_MES:
 	MOV A,#'D';
 	ACALL DATAWRT
 	RET
-	
+
+; the function to print the wait message 
 WAIT_MES:
 	ACALL LCD1602_INIT
 	ACALL LCD1602_CLEAR
